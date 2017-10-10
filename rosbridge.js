@@ -5,8 +5,7 @@ var WebSocket = require('ws');
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
 const restService = express(); 
- 
- 
+var ROSLIB = require('roslib');  
  
 restService.use(bodyParser.urlencoded({ 
 	extended: true 
@@ -14,11 +13,9 @@ restService.use(bodyParser.urlencoded({
  
 restService.use(bodyParser.json()); 
  
- 
- 
 restService.post('/echo', function(req, res) {
-	//var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.command ? req.body.result.parameters.command : "Seems like some problem. Speak again."
-	var speech = "heyyyyyyyyy";
+	var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.command ? req.body.result.parameters.command : "Seems like some problem. Speak again."
+	//var speech = "heyyyyyyyyy";
 	console.log("This is from webhook: " +speech);
 	senddatatows(speech);
 	
@@ -31,16 +28,13 @@ restService.post('/echo', function(req, res) {
 });
  
 function senddatatows(speech) {
-	var ROSLIB = require('roslib'); 
-	var WebSocket = require('ws');
- 
 	/* Load application settings */  
 	var no_skipping_factor = 1; 
 	/*ROS-bridge endpoint*/ 
 	
-	/*var ros = new ROSLIB.Ros({
+	var ros = new ROSLIB.Ros({
 		url : 'ws://localhost:9090'
-	}); */
+	});
 	
 	/*webSocket Cloud options*/ 
 	var ws_client_state = "offline"; 
@@ -65,7 +59,7 @@ function senddatatows(speech) {
 	*/ 
 	/*State of ROS-BRIDGE connection*/ 
  
-	/* var ros_bridge_state = 'offline'; 
+	var ros_bridge_state = 'offline'; 
  
 	ros.on('connection', function() { 
 	  ros_bridge_state = "Connected"; 
@@ -97,7 +91,7 @@ function senddatatows(speech) {
 	});
 
 	console.log("Publishing chatbot");
-	speak.publish(str); */
+	speak.publish(str);
 	 
  
 }
