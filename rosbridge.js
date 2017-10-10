@@ -33,7 +33,7 @@ function senddatatows(speech) {
 	/*ROS-bridge endpoint*/ 
 	
 	var ros = new ROSLIB.Ros({
-		url : 'wss://192.168.198.131:9090'
+		url : 'ws://192.168.198.131:9090'
 	});
 	
 	/*webSocket Cloud options*/ 
