@@ -2,16 +2,19 @@
  
  
 var WebSocket = require('ws'); 
+var ROSLIB = require('roslib'); 
 const express = require('express'); 
 const bodyParser = require('body-parser'); 
-const restService = express(); 
-var ROSLIB = require('roslib');  
+const restService = express();  
+ 
  
 restService.use(bodyParser.urlencoded({ 
 	extended: true 
 })); 
  
 restService.use(bodyParser.json()); 
+ 
+ 
  
 restService.post('/echo', function(req, res) {
 	var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.command ? req.body.result.parameters.command : "Seems like some problem. Speak again."
@@ -27,7 +30,7 @@ restService.post('/echo', function(req, res) {
 	
 });
  
-function senddatatows(speech) {
+function senddatatows(speech) { 
 	/* Load application settings */  
 	var no_skipping_factor = 1; 
 	/*ROS-bridge endpoint*/ 
@@ -41,6 +44,8 @@ function senddatatows(speech) {
 	var ws = new WebSocket('wss://ws-broadcast-server-d062507.cfapps.eu10.hana.ondemand.com'); 
  
 	ws.on('open', function open() { 
+		ws_client_state = "connected";
+		console.log("connected");
 		ws.send(speech); 
 	}); 
  
@@ -87,7 +92,7 @@ function senddatatows(speech) {
 	});
 
 	var str = new ROSLIB.Message({
-			data: 'Hey, I am working'
+			data: speech
 	});
 
 	console.log("Publishing chatbot");
