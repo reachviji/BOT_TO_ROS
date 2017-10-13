@@ -1,19 +1,23 @@
 {
-  "name": "command",
-  "version": "1.0.0",
-  "description": "command",
-  "main": "rosbridge.js",
-  "scripts": {
-    "start": "node rosbridge.js"
+  "name": "dialogflowFirebaseFulfillment",
+  "description": "This is the default fulfillment for a Dialogflow agents using Cloud Functions for Firebase",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Google Inc.",
+  "engines": {
+    "node": "~6.0"
   },
-  "author": "Viji",
+  "scripts": {
+    "start": "firebase serve --only functions:dialogflowFirebaseFulfillment",
+    "deploy": "firebase deploy --only functions:dialogflowFirebaseFulfillment"
+  },
   "dependencies": {
-    "body-parser": "1.18.1",
-    "exact": "^0.8.0",
-    "express": "4.15.4",
-    "roslib": "^0.18.0",
-    "yamljs": "^0.2.8",
-    "restify": "6.0.1",
-    "ws": "3.2.0"
+    "actions-on-google": "^1.5.x",
+    "firebase-admin": "^4.2.1",
+    "firebase-functions": "^0.5.7",
+    "roslib": "0.18.0",
+    "ws": "3.2.0",
+    "apiai": "^4.0.3"
   }
 }
